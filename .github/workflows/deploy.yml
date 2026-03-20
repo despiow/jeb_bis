@@ -1,0 +1,57 @@
+name: Vérification & Déploiement Portainer
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    name: Vérification du code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      - name: Vérification syntaxe JavaScript
+        run: |
+          echo "→ Vérification JS..."
+          node --check js/main.js
+          echo "✓ JS valide"
+
+      - name: Vérification fichiers obligatoires
+        run: |
+          echo "→ Vérification des fichiers clés..."
+          test -f index.html   || (echo "✗ index.html manquant" && exit 1)
+          test -f css/style.css || (echo "✗ style.css manquant" && exit 1)
+          test -f js/main.js   || (echo "✗ main.js manquant" && exit 1)
+          echo "✓ Fichiers présents"
+
+      - name: Vérification HTML basique
+        run: |
+          echo "→ Vérification HTML..."
+          grep -q "<!DOCTYPE html>" index.html || (echo "✗ DOCTYPE manquant" && exit 1)
+          grep -q "</html>"        index.html || (echo "✗ Balise </html> manquante" && exit 1)
+          grep -q "css/style.css"  index.html || (echo "✗ Lien CSS manquant" && exit 1)
+          grep -q "js/main.js"     index.html || (echo "✗ Lien JS manquant" && exit 1)
+          echo "✓ HTML valide"
+
+  deploy:
+    name: Déploiement sur Portainer
+    runs-on: ubuntu-latest
+    needs: verify
+
+    steps:
+      - name: Déclenchement du webhook Portainer
+        run: |
+          echo "→ Envoi vers Portainer..."
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "${{ secrets.PORTAINER_WEBHOOK_URL }}")
+          echo "Code réponse : $RESPONSE"
+          if [ "$RESPONSE" -ge 200 ] && [ "$RESPONSE" -lt 300 ]; then
+            echo "✓ Déploiement déclenché avec succès"
+          else
+            echo "✗ Erreur Portainer (code $RESPONSE)"
+            exit 1
+          fi
