@@ -705,32 +705,6 @@ address {
   transform: scale(1.08);
 }
 
-/* ===== Gallery zoom preview ===== */
-.gallery-zoom-preview {
-  position: fixed;
-  z-index: 800;
-  width: 380px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0.93) translateY(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.gallery-zoom-preview.active {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-}
-
-.gallery-zoom-preview img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  display: block;
-}
-
 /* ===== Gallery lightbox ===== */
 .gallery-lightbox {
   position: fixed;

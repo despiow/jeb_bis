@@ -3,39 +3,6 @@ var galleryItems = document.querySelectorAll('.gallery-item');
 
 if (galleryItems.length) {
 
-  // --- Zoom au survol ---
-  var preview = document.createElement('div');
-  preview.className = 'gallery-zoom-preview';
-  var previewImg = document.createElement('img');
-  previewImg.src = '';
-  previewImg.alt = '';
-  preview.appendChild(previewImg);
-  document.body.appendChild(preview);
-
-  function positionPreview(rect) {
-    var w = 380;
-    var left = rect.left + rect.width / 2 - w / 2;
-    var top  = rect.top - 280 - 14;
-    if (left < 8) left = 8;
-    if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
-    if (top < 8) top = rect.bottom + 14;
-    preview.style.left = left + 'px';
-    preview.style.top  = top  + 'px';
-  }
-
-  galleryItems.forEach(function(item) {
-    var img = item.querySelector('img');
-    item.addEventListener('mouseenter', function() {
-      previewImg.src = img.src;
-      previewImg.alt = img.alt;
-      positionPreview(item.getBoundingClientRect());
-      preview.classList.add('active');
-    });
-    item.addEventListener('mouseleave', function() {
-      preview.classList.remove('active');
-    });
-  });
-
   // --- Lightbox carousel ---
   var images = [];
   galleryItems.forEach(function(item) {
