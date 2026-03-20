@@ -20,42 +20,6 @@ if (navToggle && navMenu) {
   });
 }
 
-// Fil d'Ariane dynamique
-function updateBreadcrumb() {
-  const breadcrumb = document.querySelector('.breadcrumb');
-  if (!breadcrumb) return;
-
-  const sections = [
-    { id: 'accueil', name: 'Accueil' },
-    { id: 'services', name: 'Services' },
-    { id: 'animateur', name: 'Animateur' },
-    { id: 'location', name: 'Location' },
-    { id: 'galerie', name: 'Galerie' },
-    { id: 'videos', name: 'Vidéos' },
-    { id: 'contact', name: 'Contact' }
-  ];
-
-  const update = () => {
-    const scrollPos = window.scrollY + 150;
-    let currentSection = 'Accueil';
-
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const section = document.getElementById(sections[i].id);
-      if (section && section.offsetTop <= scrollPos) {
-        currentSection = sections[i].name;
-        break;
-      }
-    }
-
-    const currentSpan = breadcrumb.querySelector('.current');
-    if (currentSpan) currentSpan.textContent = currentSection;
-  };
-
-  window.addEventListener('scroll', update);
-  window.addEventListener('load', update);
-}
-
-updateBreadcrumb();
 
 // Message contact (succès/erreur)
 const urlParams = new URLSearchParams(window.location.search);

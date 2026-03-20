@@ -203,24 +203,6 @@ address {
   width: 100%;
 }
 
-/* Breadcrumb */
-.breadcrumb {
-  padding: 0.5rem 1.5rem;
-  background: rgba(130, 75, 20, 0.65);
-  border-top: 1px solid rgba(176, 125, 82, 0.2);
-  font-size: 0.875rem;
-  color: var(--color-wood);
-}
-
-.breadcrumb .separator {
-  margin: 0 0.5rem;
-  opacity: 0.6;
-}
-
-.breadcrumb .current {
-  color: var(--color-primary);
-  font-weight: 500;
-}
 
 /* ===== Hero ===== */
 .hero {
@@ -378,7 +360,7 @@ address {
 .slogan-main {
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 3vw, 1.75rem);
-  color: var(--color-accent);
+  color: #f0d878;
   letter-spacing: 0.08em;
   font-weight: 600;
 }
