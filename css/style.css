@@ -122,9 +122,10 @@ address {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(250, 248, 245, 0.96);
+  background: rgba(224, 237, 230, 0.97);
   backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 12px rgba(45, 74, 62, 0.12);
+  border-bottom: 1px solid rgba(45, 74, 62, 0.1);
 }
 
 .header-inner {
@@ -205,9 +206,10 @@ address {
 /* Breadcrumb */
 .breadcrumb {
   padding: 0.5rem 1.5rem;
-  background: var(--color-bg-alt);
+  background: rgba(196, 149, 92, 0.22);
+  border-top: 1px solid rgba(176, 125, 82, 0.2);
   font-size: 0.875rem;
-  color: var(--color-text-muted);
+  color: var(--color-wood);
 }
 
 .breadcrumb .separator {
@@ -1146,7 +1148,7 @@ address {
     width: 80%;
     max-width: 320px;
     height: 100vh;
-    background: white;
+    background: #e8f2ed;
     flex-direction: column;
     padding: 5rem 2rem 2rem;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
