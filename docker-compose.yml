@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  jeb:
+    image: ghcr.io/despiow/jeb:latest
+    container_name: jeb_site
+    ports:
+      - "8099:80"
+    networks:
+      - jeb-net
+    restart: unless-stopped
+
+networks:
+  jeb-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.99.0/24
