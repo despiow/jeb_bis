@@ -7,8 +7,8 @@
   --color-wood: #7a4f2e;
   --color-wood-light: #b07d52;
   --color-wood-pale: #f0e0cc;
-  --color-bg: #faf8f5;
-  --color-bg-alt: #f0ebe3;
+  --color-bg: #e8f2ec;
+  --color-bg-alt: #dfc5a0;
   --color-text: #2c2c2c;
   --color-text-muted: #5c5c5c;
   --font-main: 'Outfit', sans-serif;
@@ -368,7 +368,7 @@ address {
 /* ===== Quick Nav ===== */
 .quick-nav {
   padding: 3rem 0;
-  background: white;
+  background: var(--color-bg);
   box-shadow: var(--shadow-sm);
 }
 
