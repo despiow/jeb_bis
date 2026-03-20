@@ -1,3 +1,98 @@
+// ===== Galerie : zoom au survol + lightbox carousel =====
+const galleryItems = document.querySelectorAll('.gallery-item');
+
+if (galleryItems.length) {
+  // --- Zoom au survol ---
+  const preview = document.createElement('div');
+  preview.className = 'gallery-zoom-preview';
+  preview.innerHTML = '<img src="" alt="">';
+  document.body.appendChild(preview);
+
+  function positionPreview(rect) {
+    const w = 380;
+    let left = rect.left + rect.width / 2 - w / 2;
+    let top  = rect.top - 280 - 14;
+    if (left < 8) left = 8;
+    if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+    if (top < 8) top = rect.bottom + 14;
+    preview.style.left = left + 'px';
+    preview.style.top  = top  + 'px';
+  }
+
+  galleryItems.forEach(item => {
+    const img = item.querySelector('img');
+    item.addEventListener('mouseenter', () => {
+      preview.querySelector('img').src = img.src;
+      preview.querySelector('img').alt = img.alt;
+      const rect = item.getBoundingClientRect();
+      positionPreview(rect);
+      preview.classList.add('active');
+    });
+    item.addEventListener('mouseleave', () => {
+      preview.classList.remove('active');
+    });
+  });
+
+  // --- Lightbox carousel ---
+  const images = Array.from(galleryItems).map(item => ({
+    src: item.querySelector('img').src,
+    alt: item.querySelector('img').alt
+  }));
+  let current = 0;
+
+  const lightbox = document.createElement('div');
+  lightbox.className = 'gallery-lightbox';
+  lightbox.innerHTML = `
+    <div class="lightbox-backdrop"></div>
+    <button class="lightbox-prev">&#8249;</button>
+    <div class="lightbox-img-wrap">
+      <img class="lightbox-img" src="" alt="">
+    </div>
+    <button class="lightbox-next">&#8250;</button>
+    <button class="lightbox-close">&times;</button>
+    <div class="lightbox-counter"></div>`;
+  document.body.appendChild(lightbox);
+
+  const lbImg     = lightbox.querySelector('.lightbox-img');
+  const lbCounter = lightbox.querySelector('.lightbox-counter');
+
+  function showImage(index) {
+    current = (index + images.length) % images.length;
+    lbImg.classList.remove('loaded');
+    lbImg.onload = () => lbImg.classList.add('loaded');
+    lbImg.src = images[current].src;
+    lbImg.alt = images[current].alt;
+    lbCounter.textContent = (current + 1) + ' / ' + images.length;
+  }
+
+  function openLightbox(index) {
+    showImage(index);
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  galleryItems.forEach((item, i) => {
+    item.addEventListener('click', () => openLightbox(i));
+  });
+
+  lightbox.querySelector('.lightbox-prev').addEventListener('click', () => showImage(current - 1));
+  lightbox.querySelector('.lightbox-next').addEventListener('click', () => showImage(current + 1));
+  lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  lightbox.querySelector('.lightbox-backdrop').addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'ArrowLeft')  showImage(current - 1);
+    if (e.key === 'ArrowRight') showImage(current + 1);
+    if (e.key === 'Escape')     closeLightbox();
+  });
+}
+
 // Navigation mobile
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
