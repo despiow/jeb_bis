@@ -105,9 +105,8 @@ address {
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+  background: var(--color-primary);
+  color: white;
 }
 
 .btn-secondary:hover {
@@ -132,9 +131,7 @@ address {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
 }
 
 .logo {
@@ -143,8 +140,19 @@ address {
   gap: 0.5rem;
 }
 
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--color-accent-light);
+  white-space: nowrap;
+}
+
 .logo img {
-  height: 48px;
+  height: 60px;
   width: auto;
 }
 
@@ -184,7 +192,7 @@ address {
 
 .nav-menu a {
   font-weight: 500;
-  color: #2a1a08;
+  color: var(--color-accent-light);
   position: relative;
 }
 
@@ -243,12 +251,19 @@ address {
   position: relative;
 }
 
+.hero-logo {
+  height: 260px;
+  width: auto;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
 .hero-label {
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-light);
   margin-bottom: 1rem;
 }
 
@@ -286,9 +301,9 @@ address {
 }
 
 .badge {
-  background: rgba(201, 162, 39, 0.25);
+  background: rgb(207, 171, 54);
   border: 1px solid rgba(201, 162, 39, 0.6);
-  color: var(--color-accent-light);
+  color: rgb(43, 88, 49);
   padding: 0.35rem 0.9rem;
   border-radius: 50px;
   font-size: 0.875rem;
@@ -303,13 +318,14 @@ address {
 }
 
 .hero-cta .btn-primary {
-  background: var(--color-accent);
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-accent-light);
   font-weight: 600;
 }
 
 .hero-cta .btn-primary:hover {
   background: var(--color-accent-light);
+  color: var(--color-primary);
 }
 
 .hero-cta .btn-secondary {
@@ -1137,8 +1153,8 @@ address {
 
 .footer-sub {
   font-size: 0.85rem;
-  opacity: 0.75;
   font-style: italic;
+  color: var(--color-accent);
 }
 
 .footer-nav {
@@ -1211,7 +1227,7 @@ address {
 
 .footer-bottom p {
   font-size: 0.8rem;
-  opacity: 0.55;
+  color: var(--color-accent);
 }
 
 /* ===== Responsive ===== */
