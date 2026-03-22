@@ -1,4 +1,6 @@
+# ⚠️ REMPLACER "jeuxdantan.fr" par votre vrai nom de domaine
 User-agent: *
 Allow: /
+Disallow: /contact.php
 
-Sitemap: https://votresite.com/sitemap.xml
+Sitemap: https://jeuxdantan.fr/sitemap.xml

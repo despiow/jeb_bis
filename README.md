@@ -51,7 +51,7 @@ Dans le footer, remplacez les `href="#"` des liens sociaux par vos URLs Facebook
 ### SEO (référencement Google)
 Le site inclut déjà des balises SEO. **À personnaliser avant mise en ligne** :
 
-1. **URL du site** : Remplacez `https://votresite.com` par votre vraie URL dans :
+1. **URL du site** : Remplacez `https://jeuxdantan.fr` par votre vraie URL dans :
    - `index.html` (balises canonical, og:url, og:image, twitter:image, JSON-LD)
    - `sitemap.xml` (balise loc)
    - `robots.txt` (Sitemap)
