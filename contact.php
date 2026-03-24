@@ -1,8 +1,16 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require __DIR__ . '/phpmailer/Exception.php';
+require __DIR__ . '/phpmailer/PHPMailer.php';
+require __DIR__ . '/phpmailer/SMTP.php';
+
 $destinataire = 'anthony.jardy@gmail.com';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+    $email   = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
     $subject = htmlspecialchars($_POST['subject'] ?? 'Message depuis le site JEB');
     $message = htmlspecialchars($_POST['message'] ?? '');
 
@@ -11,23 +19,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $headers = [
-        'From: ' . $email,
-        'Reply-To: ' . $email,
-        'X-Mailer: PHP/' . phpversion(),
-        'Content-Type: text/plain; charset=UTF-8'
-    ];
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'anthony.jardy@gmail.com';
+        $mail->Password   = 'xszzicqqbgwsmvwy';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+        $mail->CharSet    = 'UTF-8';
 
-    $corps = "Message reçu depuis le formulaire de contact JEB\n\n";
-    $corps .= "Expéditeur : " . $email . "\n";
-    $corps .= "Objet : " . $subject . "\n\n";
-    $corps .= "--- Message ---\n\n" . $message;
+        $mail->setFrom('anthony.jardy@gmail.com', 'JEB - Formulaire Contact');
+        $mail->addAddress($destinataire);
+        $mail->addReplyTo($email, $email);
 
-    $succes = mail($destinataire, '[JEB] ' . $subject, $corps, implode("\r\n", $headers));
+        $mail->Subject = '[JEB] ' . $subject;
+        $mail->Body    = "Message reçu depuis le formulaire de contact JEB\n\n"
+                       . "Expéditeur : " . $email . "\n"
+                       . "Objet : " . $subject . "\n\n"
+                       . "--- Message ---\n\n" . $message;
 
-    if ($succes) {
+        $mail->send();
         header('Location: index.html?contact=success');
-    } else {
+    } catch (Exception $e) {
         header('Location: index.html?contact=error');
     }
     exit;

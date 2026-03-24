@@ -17,7 +17,15 @@
       "Bash(chmod -R 775 /var/www/JEB)",
       "Bash(xargs ls:*)",
       "Bash(git pull:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(php -r \"echo ini_get\\(''sendmail_path''\\);\")",
+      "Bash(php -r \"var_dump\\(mail\\(''anthony.jardy@gmail.com'', ''test'', ''test''\\)\\);\")",
+      "Bash(dpkg -l)",
+      "Bash(composer --version)",
+      "Bash(curl -sL https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php -o /var/www/JEB/phpmailer/PHPMailer.php)",
+      "Bash(curl -sL https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/SMTP.php -o /var/www/JEB/phpmailer/SMTP.php)",
+      "Bash(curl -sL https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/Exception.php -o /var/www/JEB/phpmailer/Exception.php)",
+      "Bash(php:*)"
     ]
   }
 }
