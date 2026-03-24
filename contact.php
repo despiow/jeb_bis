@@ -7,7 +7,7 @@ require __DIR__ . '/phpmailer/Exception.php';
 require __DIR__ . '/phpmailer/PHPMailer.php';
 require __DIR__ . '/phpmailer/SMTP.php';
 
-$destinataire = 'anthony.jardy@gmail.com';
+$destinataire = 'philippe.marvie@gmail.com';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email   = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
