@@ -24,19 +24,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'anthony.jardy@gmail.com';
-        $mail->Password   = 'xszzicqqbgwsmvwy';
+        $mail->Username   = 'jeuxenboisdantan13@gmail.com';
+        $mail->Password   = 'vrxgqvprrmuvzjxa';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
         $mail->CharSet    = 'UTF-8';
 
-        $mail->setFrom('anthony.jardy@gmail.com', 'JEB - Formulaire Contact');
+        $mail->setFrom('jeuxenboisdantan13@gmail.com', 'Contact');
         $mail->addAddress($destinataire);
         $mail->addReplyTo($email, $email);
 
-        $mail->Subject = '[JEB] ' . $subject;
-        $mail->Body    = "Message reçu depuis le formulaire de contact JEB\n\n"
-                       . "Expéditeur : " . $email . "\n"
+        $mail->Subject = 'Prise de contact depuis jeuxdantan.fr - ' . $subject;
+        $mail->Body    = "Expéditeur : " . $email . "\n"
                        . "Objet : " . $subject . "\n\n"
                        . "--- Message ---\n\n" . $message;
 
