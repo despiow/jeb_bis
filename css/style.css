@@ -1331,6 +1331,10 @@ address {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
+  .header-title {
+    display: none;
+  }
+
   .videos-grid {
     grid-template-columns: 1fr;
   }
