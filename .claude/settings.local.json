@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \":*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git config:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(node --check /var/www/JEB/js/main.js)",
+      "Bash(chown:*)",
+      "Bash(find /var/www/JEB -not -path */.git/* -not -user despiow -ls)",
+      "Bash(identify /var/www/JEB/assets/moi.png)",
+      "Bash(python3 -c \"from PIL import Image; img = Image.open\\(''/var/www/JEB/assets/moi.png''\\); print\\(img.size, img.mode\\)\")",
+      "Bash(chmod -R 775 /var/www/JEB)",
+      "Bash(xargs ls:*)",
+      "Bash(git pull:*)",
+      "Bash(git rebase:*)"
+    ]
+  }
+}
