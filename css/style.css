@@ -141,14 +141,7 @@ address {
 }
 
 .header-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: 1.9rem;
-  font-weight: 600;
-  color: var(--color-accent-light);
-  white-space: nowrap;
+  display: none;
 }
 
 .logo img {
@@ -1331,9 +1324,6 @@ address {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  .header-title {
-    display: none;
-  }
 
   .videos-grid {
     grid-template-columns: 1fr;
