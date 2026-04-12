@@ -1,0 +1,42 @@
+# ===== Éditeurs & OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# ===== Claude =====
+.claude/
+claude.md
+
+# ===== Logs =====
+*.log
+logs/
+npm-debug.log*
+
+# ===== Dépendances =====
+node_modules/
+vendor/
+
+# ===== Variables d'environnement =====
+.env
+.env.*
+!.env.example
+
+# ===== Build / cache =====
+dist/
+build/
+.cache/
+tmp/
+temp/
+
+# ===== Docker local =====
+docker-compose.override.yml
+
+# ===== PHP =====
+*.phar
