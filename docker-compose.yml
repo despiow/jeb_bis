@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  jeb:
-    image: ghcr.io/despiow/jeb:latest
-    container_name: jeb_site
+  jeb_bis:
+    image: ghcr.io/despiow/jeb_bis:latest
+    container_name: jeb_bis_site
     ports:
-      - "8099:80"
+      - "8101:80"
     network_mode: bridge
     restart: unless-stopped
