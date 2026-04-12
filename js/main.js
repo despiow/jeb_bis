@@ -209,3 +209,174 @@ window.addEventListener('scroll', function() {
     header.classList.remove('scrolled');
   }
 });
+
+// ===== Reviews Carousel =====
+(function() {
+  var track     = document.getElementById('reviews-track');
+  var carousel  = document.getElementById('reviews-carousel');
+  var dotsWrap  = document.getElementById('carousel-dots');
+  var btnPrev   = document.querySelector('.carousel-prev');
+  var btnNext   = document.querySelector('.carousel-next');
+
+  if (!track || !carousel) return;
+
+  var cards       = Array.prototype.slice.call(track.querySelectorAll('.review-card'));
+  var totalCards  = cards.length;
+  var currentIdx  = 0;
+  var visibleCount = 3;
+  var autoTimer   = null;
+
+  function getVisible() {
+    var w = carousel.offsetWidth;
+    if (w < 560) return 1;
+    if (w < 900) return 2;
+    return 3;
+  }
+
+  function maxIndex() {
+    return Math.max(0, totalCards - visibleCount);
+  }
+
+  function updateCardWidth() {
+    visibleCount = getVisible();
+    var gap = visibleCount > 1 ? 24 : 0;
+    var cardW = (carousel.offsetWidth - gap * (visibleCount - 1)) / visibleCount;
+    cards.forEach(function(c) {
+      c.style.flex = '0 0 ' + cardW + 'px';
+    });
+    track.style.gap = gap + 'px';
+    goTo(Math.min(currentIdx, maxIndex()), false);
+    buildDots();
+  }
+
+  function goTo(idx, animate) {
+    if (animate === false) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
+    }
+    var gap      = visibleCount > 1 ? 24 : 0;
+    var cardW    = cards[0] ? cards[0].offsetWidth : 0;
+    var offset   = idx * (cardW + gap);
+    currentIdx   = idx;
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    updateDots();
+    updateButtons();
+    if (animate === false) {
+      // Re-enable transitions next frame
+      requestAnimationFrame(function() {
+        track.style.transition = '';
+      });
+    }
+  }
+
+  function buildDots() {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    var count = maxIndex() + 1;
+    for (var i = 0; i < count; i++) {
+      (function(i) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === currentIdx ? ' active' : '');
+        dot.setAttribute('aria-label', 'Aller à l\'avis ' + (i + 1));
+        dot.setAttribute('role', 'tab');
+        dot.addEventListener('click', function() { goTo(i, true); resetAuto(); });
+        dotsWrap.appendChild(dot);
+      })(i);
+    }
+  }
+
+  function updateDots() {
+    if (!dotsWrap) return;
+    var dots = dotsWrap.querySelectorAll('.carousel-dot');
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === currentIdx);
+    });
+  }
+
+  function updateButtons() {
+    if (btnPrev) btnPrev.disabled = currentIdx <= 0;
+    if (btnNext) btnNext.disabled = currentIdx >= maxIndex();
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(function() {
+      var next = currentIdx >= maxIndex() ? 0 : currentIdx + 1;
+      goTo(next, true);
+    }, 5000);
+  }
+
+  if (btnPrev) {
+    btnPrev.addEventListener('click', function() {
+      if (currentIdx > 0) { goTo(currentIdx - 1, true); resetAuto(); }
+    });
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener('click', function() {
+      if (currentIdx < maxIndex()) { goTo(currentIdx + 1, true); resetAuto(); }
+    });
+  }
+
+  // Swipe touch support
+  var touchStartX = 0;
+  carousel.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  carousel.addEventListener('touchend', function(e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0 && currentIdx < maxIndex()) { goTo(currentIdx + 1, true); resetAuto(); }
+      else if (diff < 0 && currentIdx > 0)    { goTo(currentIdx - 1, true); resetAuto(); }
+    }
+  }, { passive: true });
+
+  // Keyboard support
+  carousel.setAttribute('tabindex', '0');
+  carousel.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft'  && currentIdx > 0)         { goTo(currentIdx - 1, true); resetAuto(); }
+    if (e.key === 'ArrowRight' && currentIdx < maxIndex()) { goTo(currentIdx + 1, true); resetAuto(); }
+  });
+
+  // Init
+  updateCardWidth();
+  resetAuto();
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(updateCardWidth, 150);
+  });
+})();
+
+// ===== Pricing interaction =====
+var pricingArena = document.getElementById('pricing-arena');
+var pricingCards = pricingArena
+  ? Array.prototype.slice.call(pricingArena.querySelectorAll('.pricing-cat-card'))
+  : [];
+
+if (pricingArena && pricingCards.length) {
+  pricingCards.forEach(function(card) {
+    var header = card.querySelector('.pricing-cat-header');
+    if (!header) return;
+    header.addEventListener('click', function() {
+      if (card.classList.contains('active')) return;
+      pricingCards.forEach(function(c) { c.classList.remove('active'); });
+      pricingArena.classList.add('has-active');
+      card.classList.add('active');
+      setTimeout(function() {
+        var top = pricingArena.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }, 60);
+    });
+  });
+}
+
+function resetPricing() {
+  if (!pricingArena) return;
+  pricingCards.forEach(function(c) { c.classList.remove('active'); });
+  pricingArena.classList.remove('has-active');
+  var top = pricingArena.getBoundingClientRect().top + window.pageYOffset - 120;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+}
