@@ -688,6 +688,17 @@ address {
   font-size: 0.95rem;
 }
 
+.location-card-price {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.35rem 0.9rem;
+  background: var(--color-accent);
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 2rem;
+}
+
 .location-cta {
   text-align: center;
   margin-top: 1.5rem;
