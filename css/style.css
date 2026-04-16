@@ -648,10 +648,10 @@ address {
 
 .location-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 2.5rem;
-  max-width: 1000px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -688,7 +688,7 @@ address {
   font-size: 0.95rem;
 }
 
-.location-card-price {
+.location-card .location-card-price {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.35rem 0.9rem;
